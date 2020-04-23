@@ -1,0 +1,34 @@
+{
+    "name": "supen/supports",
+    "description": "common components",
+    "keywords": ["support", "array", "collection", "config", "http", "guzzle", "throttle"],
+    "authors": [
+        {
+            "name": "supen",
+            "email": "supen.huang@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3",
+        "guzzlehttp/guzzle": "^6.5.2"
+    },
+    "require-dev": {
+        "predis/predis": "^1.1.1",
+        "phpunit/phpunit": "^8.5",
+        "friendsofphp/php-cs-fixer": "^2.16.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Supen\\Supports\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Supen\\Supports\\Tests\\": "tests/"
+        }
+    },
+    "suggest": {
+        "predis/predis": "Allows to use throttle feature"
+    },
+    "license": "MIT"
+}
