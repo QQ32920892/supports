@@ -31,6 +31,23 @@ class Str
     protected static $studlyCache = [];
 
     /**
+     * 判断字符串是否未空
+     *
+     * @param string $value
+     * @return boolean
+     */
+    public static function isEmptyOrNullString($value)
+    {
+        if($value === null || empty($value))
+            return true;
+
+        if(gettype($value) == 'string' && strlen($value) <= 0)
+            return true;
+
+        return false;
+    }
+
+    /**
      * Return the remainder of a string after a given value.
      *
      * @param string $subject
