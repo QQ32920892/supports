@@ -1,6 +1,7 @@
 {
     "name": "supen/supports",
     "description": "common components",
+    "version": "0.0.2",
     "keywords": ["support", "array", "collection", "config", "http", "guzzle", "throttle"],
     "authors": [
         {
