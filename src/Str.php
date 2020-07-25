@@ -571,7 +571,7 @@ class Str
      * @param string $str
      * @return string
      */
-    function u2c($str)
+    public static function u2c($str)
     {
         return preg_replace_callback("#\\\u([0-9a-f]{4})#i",
             function ($r) {
