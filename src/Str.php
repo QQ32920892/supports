@@ -38,17 +38,17 @@ class Str
      */
     public static function isEmptyOrNullString($value)
     {
-        if($value === null || empty($value))
+        if ($value === null || empty($value))
             return true;
 
-        if(gettype($value) == 'string' && strlen($value) <= 0)
+        if (gettype($value) == 'string' && strlen($value) <= 0)
             return true;
 
         return false;
     }
 
     /**
-     * Return the remainder of a string after a given value.
+     * 返回给定值后字符串的其余部分。
      *
      * @param string $subject
      * @param string $search
@@ -61,7 +61,7 @@ class Str
     }
 
     /**
-     * Transliterate a UTF-8 value to ASCII.
+     * 将UTF-8值翻译为ASCII。
      *
      * @param string $value
      * @param string $language
@@ -84,7 +84,7 @@ class Str
     }
 
     /**
-     * Get the portion of a string before a given value.
+     * 获取给定值之前的字符串部分。
      *
      * @param string $subject
      * @param string $search
@@ -97,7 +97,7 @@ class Str
     }
 
     /**
-     * Convert a value to camel case.
+     * 将值转换为驼峰形式。
      *
      * @param string $value
      *
@@ -113,7 +113,7 @@ class Str
     }
 
     /**
-     * Determine if a given string contains a given substring.
+     * 确定给定字符串是否包含给定子字符串。
      *
      * @param string       $haystack
      * @param string|array $needles
@@ -132,7 +132,7 @@ class Str
     }
 
     /**
-     * Determine if a given string ends with a given substring.
+     * 确定给定字符串是否以给定子字符串结束。
      *
      * @param string       $haystack
      * @param string|array $needles
@@ -151,7 +151,7 @@ class Str
     }
 
     /**
-     * Cap a string with a single instance of a given value.
+     * 用给定值的单个实例来限定字符串。
      *
      * @param string $value
      * @param string $cap
@@ -166,7 +166,7 @@ class Str
     }
 
     /**
-     * Determine if a given string matches a given pattern.
+     * 确定给定字符串是否与给定模式匹配。
      *
      * @param string|array $pattern
      * @param string       $value
@@ -217,7 +217,7 @@ class Str
     }
 
     /**
-     * Return the length of the given string.
+     * 返回给定字符串的长度。
      *
      * @param string $value
      * @param string $encoding
@@ -234,7 +234,7 @@ class Str
     }
 
     /**
-     * Limit the number of characters in a string.
+     * 限制字符串中的字符数。
      *
      * @param string $value
      * @param int    $limit
@@ -252,7 +252,7 @@ class Str
     }
 
     /**
-     * Convert the given string to lower-case.
+     * 将给定的字符串转换为小写。
      *
      * @param string $value
      *
@@ -264,7 +264,7 @@ class Str
     }
 
     /**
-     * Limit the number of words in a string.
+     * 限制字符串中的单词数量。
      *
      * @param string $value
      * @param int    $words
@@ -563,6 +563,22 @@ class Str
     public static function decode($string, $key)
     {
         return self::makeString($string, 'DECODE', $key);
+    }
+
+    /**
+     * Unicode转中文
+     *
+     * @param string $str
+     * @return string
+     */
+    function u2c($str)
+    {
+        return preg_replace_callback("#\\\u([0-9a-f]{4})#i",
+            function ($r) {
+                return iconv('UCS-2BE', 'UTF-8', pack('H4', $r[1]));
+            },
+            $str
+        );
     }
 
     /**
