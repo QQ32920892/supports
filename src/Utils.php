@@ -109,4 +109,75 @@ class Utils
             return "Alipay";
         }
     }
+
+    /**
+     * 获取当前日期是第几周以及该周的开始日期和结束日期
+     *
+     * @param string $date 日期
+     * @param integer $first 设定一周的开始时间，默认为1，即周一，0则代表周日为开始时间
+     * @return array
+     */
+    public static function getNowTimeInfo($date, $first = 1)
+    {
+        $result = [];
+        // 获取年份
+        $result['year'] = date('Y', strtotime($date));
+        // 获取当前日期在整年中的第几周
+        $result['week'] = date('W', strtotime($date));
+        // 获取给定的日期是周几，0是周日，取值范围是0至6，分别代表周日至周六
+        $week = date('w', strtotime($date));
+        // 获取给定日期的周开始日期
+        $weekBegin = date('Y-m-d', strtotime("$date -" . ($week ? $week - $first : 6) . ' days'));
+        $result['week_begin'] = $weekBegin;
+        // 获取给定日期的周结束日期
+        $weekEnd = date('Y-m-d', strtotime("$weekBegin + 6 days"));
+        $result['week_end'] = $weekEnd;
+        return $result;
+    }
+
+    /**
+     * 秒转换为天，小时，分钟
+     *
+     * @param integer $second 时间戳
+     * @return void
+     */
+    function secondChanage($second = 0)
+    {
+        $newtime = '';
+        $d = floor($second / (3600 * 24));
+        $h = floor(($second % (3600 * 24)) / 3600);
+        $m = floor((($second % (3600 * 24)) % 3600) / 60);
+        $s = $second - ($d * 24 * 3600) - ($h * 3600) - ($m * 60);
+
+        empty($d) ?  
+        $newtime = (
+                empty($h) ? (
+                    empty($m) ? $s . '秒' : ( 
+                        empty($s) ? $m.'分' :  $m.'分'.$s.'秒'
+                        )
+                    ) : (
+                    empty($m) && empty($s) ? $h . '时' : (
+                        empty($m) ? $h . '时' . $s . '秒' : (
+                            empty($s) ? $h . '时' . $m . '分' : $h . '时' . $m . '分' . $s . '秒'
+                            )
+                    )
+                )
+        ) : $newtime = (
+            empty($h) && empty($m) && empty($s) ? $d . '天' : (
+                empty($h) && empty($m) ? $d . '天' . $s .'秒' : (
+                    empty($h) && empty($s) ? $d . '天' . $m .'分' : (
+                        empty($m) && empty($s) ? $d . '天' .$h . '时' : (
+                            empty($h) ? $d . '天' .$m . '分' . $s .'秒' : (
+                                empty($m) ? $d . '天' .$h . '时' . $s .'秒' : (
+                                    empty($s) ? $d . '天' .$h . '时' . $m .'分' : $d . '天' .$h . '时' . $m .'分' . $s . '秒'
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    
+        return $newtime;
+    }
 }
